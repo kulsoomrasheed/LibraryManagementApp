@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom'
 
 const Nav = () => {
   return (
-    <Flex>
+    <Flex gap={5} fontSize={'xl'} justifyContent={'space-evenly'} color={'purple'}>
+              <Link to={"/books"}>Books</Link>
+
         <Link to={"/login"} >Login</Link>
         <Link to={"/"}>Signup</Link>
-        <Link to={"/books"}>Books</Link>
     </Flex>
   )
 }
