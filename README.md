@@ -1,70 +1,95 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ #  Library App Documentation
+Overview
+This document provides a comprehensive guide for the development and deployment of a small library application using Node.js (Express) for the backend and ReactJS for the frontend. The application aims to create a secure environment for managing books through JWT authentication and role-based access control.
 
-## Available Scripts
+Table of Contents
+Setting Up the Project
 
-In the project directory, you can run:
+Dependencies
+Project Structure
+Web Interface
 
-### `npm start`
+Login Screen
+Displaying Books
+Filtering and Sorting
+Time-based Book Filtering
+Book Management APIs
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Authentication and Authorization
+CRUD Operations
+Supplementary Endpoints
+User Permissions
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Roles
+Permissions
+Technical Implementation
 
-### `npm test`
+MongoDB Integration
+Environment Property for Connection
+UI Validations
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Setting Up the Project
+Dependencies
+Ensure the following dependencies are installed:
 
-### `npm run build`
+Node.js
+Express
+ReactJS
+MongoDB
+JSON Web Tokens (JWT)
+Other necessary packages (body-parser, mongoose, etc.)
+Project Structure
+Create a project structure with separate folders for the frontend and backend. Consider the following structure:
+/library-app
+|-- /frontend
+|   |-- /src
+|   |   |-- /components
+|   |   |-- /pages
+|   |   |-- /services
+|   |   |-- ...
+|   |-- package.json
+|-- /backend
+|   |-- /routes
+|   |-- /models
+|   |-- /middlewares
+|   |-- server.js
+|   |-- package.json
+|-- .env
+2. Web Interface
+Login Screen
+Create a simple login screen using ReactJS with input fields for username and password. Implement authentication through JWT.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Displaying Books
+Design a user-friendly interface to display all books in a tabular format. Implement filtering and sorting options for ease of use.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Time-based Book Filtering
+Include an option to view books created within the last 10 minutes and those created beyond that timeframe.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Book Management APIs
+Authentication and Authorization
+Implement JWT authentication for securing APIs. Create roles such as "CREATOR" and "VIEW_ALL" for role-based access control.
 
-### `npm run eject`
+CRUD Operations
+Create API endpoints /books and /books/delete for users with the "CREATOR" role to perform CRUD operations. The /books endpoint allows users with the "VIEW_ALL" role to view all books.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Supplementary Endpoints
+Implement additional endpoints /books?old=1 and /books?new=1 to display books created beyond 10 minutes and within the last 10 minutes, respectively.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. User Permissions
+Roles
+Define two roles: "CREATOR" and "VIEW_ALL". Users can have multiple roles for flexible access.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Permissions
+Specify that "CREATOR" role users can perform all CRUD operations, while "VIEW_ALL" role users can only view books.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+5. Technical Implementation
+MongoDB Integration
+Utilize a MongoDB collection for storing book information. Store MongoDB connection information in an environment property for flexibility.
 
-## Learn More
+Environment Property for Connection
+Store MongoDB connection information in a separate .env file for easy configuration.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+UI Validations
+Implement basic UI validations to enhance the user experience, providing feedback on input errors.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
