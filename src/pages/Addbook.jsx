@@ -12,14 +12,23 @@ import {
 } from '@chakra-ui/react'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 export default function Addbook() {
     const [title,setname]=useState("")
-    const [author , setauth]= useState("")
-    const obj={title,author}
+    const token = useSelector((store)=>store.token)
+    const navigate= useNavigate()
+
+    const obj={title}
    
     const fetchData=()=>{
-        axios.post("https://lib-a9dj.onrender.com/books",obj).then((res)=>{
+        axios.post("https://lib-a9dj.onrender.com/books",obj,{
+          
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+        }).then((res)=>{
             console.log(res.data);
         }).catch((err)=>{
             console.log(err.message);
@@ -30,12 +39,17 @@ export default function Addbook() {
     const handlepost = (e) => {
         e.preventDefault();
       
-        const obj = { title, author };
+        const obj = { title };
       
-        axios.post("https://lib-a9dj.onrender.com/books", obj)
+        axios.post("https://lib-a9dj.onrender.com/books", obj,{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
           .then((res) => {
             console.log(res.data);
             alert("A new Book has been added")
+            navigate("/books")
           })
           .catch((err) => {
             console.log(err.message);
@@ -67,13 +81,7 @@ export default function Addbook() {
             _placeholder={{ color: 'gray.500' }}
           />
         </FormControl>
-        <FormControl id="email" isRequired>
-          <FormLabel>Author name</FormLabel>
-          <Input
-          onChange={(e)=>setauth(e.target.value)}
-            _placeholder={{ color: 'gray.500' }}
-          />
-        </FormControl>
+       
         
       
         <Stack spacing={6}>

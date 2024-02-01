@@ -11,6 +11,8 @@ import {
   Box,
   Button,
 } from '@chakra-ui/react';
+import { useSelector } from 'react-redux'
+
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,16 +23,35 @@ const Home = () => {
   const [showRecentBooks, setShowRecentBooks] = useState(false);
   const [sortOrder, setSortOrder] = useState('asc');
 const navigate=useNavigate()
+const token = useSelector((store)=>store.token)
+const handledelete=(_id)=>{
+  // Your code to handle the post data operation
+  axios.delete(`https://lib-a9dj.onrender.com/books/delete/${_id}`,{
+  
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+  }).then((res)=>{
+    console.log(res.data)
+    fetchData()
+  }).catch((err) => {
+console.log(err.message);
+  })
+}
   useEffect(() => {
     fetchData();
   }, [showRecentBooks, sortOrder]);
 
   const fetchData = () => {
-    axios.get("https://lib-a9dj.onrender.com/books/").then((res) => {
+    axios.get("https://lib-a9dj.onrender.com/books/",{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
       console.log(res.data);
-
+     
       let filteredData = res.data.doctors;
-
+      
       if (showRecentBooks) {
         // Filter books created within the last 10 minutes
         const tenMinutesAgo = new Date(new Date().getTime() - 10 * 60 * 1000).toISOString();
@@ -95,9 +116,9 @@ const navigate=useNavigate()
           {data.map((el, i) => (
             <Tr key={i}>
               <Td>{el.title}</Td>
-              <Td>{el.author}</Td>
+              <Td>{el.username}</Td>
               <Td>{new Date(el.createdAt).toLocaleString()}</Td>
-              <Button>Delete</Button>
+              <Button onClick={()=>handledelete(el._id)}>Delete</Button>
             </Tr>
           ))}
         </Tbody>
