@@ -19,11 +19,16 @@ import { useNavigate } from 'react-router-dom';
 // ... (previous imports)
 
 const Home = () => {
+  const [view,setview]= useState(false)
+  const [userdata , setuserData]= useState([])
   const [data, setData] = useState([]);
   const [showRecentBooks, setShowRecentBooks] = useState(false);
   const [sortOrder, setSortOrder] = useState('asc');
 const navigate=useNavigate()
 const token = useSelector((store)=>store.token)
+
+
+
 const handledelete=(_id)=>{
   // Your code to handle the post data operation
   axios.delete(`https://lib-a9dj.onrender.com/books/delete/${_id}`,{
@@ -40,6 +45,7 @@ console.log(err.message);
 }
   useEffect(() => {
     fetchData();
+   
   }, [showRecentBooks, sortOrder]);
 
   const fetchData = () => {
@@ -115,6 +121,7 @@ console.log(err.message);
         <Tbody justifyContent={'center'} textAlign={'center'} alignContent={'center'} margin={"auto"} alignItems={"center"}>
           {data.map((el, i) => (
             <Tr key={i}>
+            
               <Td>{el.title}</Td>
               <Td>{el.username}</Td>
               <Td>{new Date(el.createdAt).toLocaleString()}</Td>
@@ -128,3 +135,13 @@ console.log(err.message);
 };
 
 export default Home;
+/*const fetch= () => {
+  axios.get("https://lib-a9dj.onrender.com/user")
+    .then((res) => {
+      console.log("Data from server:", res.data.users);
+      setuserData(res.data.users);
+    })
+    .catch((err) => {
+      console.error("Error fetching data:", err.message);
+    });
+}*/

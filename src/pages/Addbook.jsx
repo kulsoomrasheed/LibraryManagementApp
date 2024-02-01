@@ -16,26 +16,16 @@ import { useSelector } from 'react-redux'
 import { Navigate, useNavigate } from 'react-router-dom'
 
 export default function Addbook() {
+ 
     const [title,setname]=useState("")
     const token = useSelector((store)=>store.token)
     const navigate= useNavigate()
-
     const obj={title}
    
-    const fetchData=()=>{
-        axios.post("https://lib-a9dj.onrender.com/books",obj,{
-          
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-        }).then((res)=>{
-            console.log(res.data);
-        }).catch((err)=>{
-            console.log(err.message);
-        
-        })
-        
-    }
+   
+   
+  
+  
     const handlepost = (e) => {
         e.preventDefault();
       

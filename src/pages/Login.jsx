@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/react'
 import { Select, Space } from 'antd';
 import Nav from '../Components/Nav';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../redux/authReducer/action';
 import { useState } from 'react';
@@ -69,6 +69,7 @@ const Blur = (props) => {
 }
 
 export default function Login() {
+  const auth= useSelector((store)=>store.auth)
   const navigate = useNavigate();
   const [username, setname] = useState("");
   const [pass, setpass] = useState("");
@@ -80,12 +81,14 @@ export default function Login() {
   };
   const handleclick = () => {
     console.log(obj);
-    dispatch(login(obj))
-      .then((res) => {
+    dispatch(login(obj)).then((res)=>{
+      navigate("/books")
+    }).catch((err)=>{
+      alert("User not found")
+    })
+      
         setname("");
         setpass("");
-        navigate("/books");
-      })
       
   };
     const options = [
@@ -258,6 +261,8 @@ Login your account            <Text as={'span'} bgGradient="linear(to-r, red.400
               }}  onClick={handleclick}>
               Login
             </Button>
+
+          
           </Box>
           form
         </Stack>
