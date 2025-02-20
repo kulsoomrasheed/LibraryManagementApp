@@ -16,16 +16,17 @@ axios.post("https://lib-a9dj.onrender.com/user/register",obj).then((res)=>{
 })
 }
 
-export const login = (obj)=>(dispatch) => {
 
+export const login = (obj)=>(dispatch) => {
     dispatch({type:LOGIN_PENDING})
- return axios.post("https://lib-a9dj.onrender.com/user/login",obj).then((res)=>{
+return axios.post("https://lib-a9dj.onrender.com/user/login",obj).then((res)=>{
     dispatch({type:LOGIN_SUCCESS,payload:res.data.token})
     console.log(res.data);
-    
+    alert("Login successfully!")
 }).catch((err)=>{
     console.log(err.message);
     dispatch({type:LOGIN_FAILED})
+    alert("User not found!")
 
 })
 }
